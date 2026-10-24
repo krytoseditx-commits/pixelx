@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b1b1f">
+<title>PIXEL X</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>PIXEL <span>X</span></h1>
+  <nav>
+    <button id="tabGame" class="tab on" type="button">Game</button>
+    <button id="tabChat" class="tab" type="button">Chat</button>
+  </nav>
+</header>
+
+<main>
+  <!-- GAME -->
+  <section id="game">
+    <div class="scores">
+      <div class="card"><small>Player X</small><b id="sx">0</b></div>
+      <div class="card"><small>Draws</small><b id="sd">0</b></div>
+      <div class="card"><small>Player O</small><b id="so">0</b></div>
+    </div>
+    <p id="status" aria-live="polite"></p>
+    <div id="board" class="board"></div>
+    <div class="row">
+      <button id="newRound" class="btn primary" type="button">New Round</button>
+      <button id="resetScores" class="btn" type="button">Reset Scores</button>
+    </div>
+  </section>
+
+  <!-- CHAT -->
+  <section id="chat" hidden>
+    <div id="setupWarn" class="notice" hidden>
+      <b>Firebase is not configured yet.</b><br>
+      Open <code>app.js</code> and paste your web-app config into <code>firebaseConfig</code>. Chat stays disabled until then.
+    </div>
+
+    <form id="loginForm" class="panel" autocomplete="on" hidden>
+      <h2>Sign in</h2>
+      <p class="muted">Private chat. Only accounts created by the owner can sign in.</p>
+      <label>Email<input id="email" type="email" autocomplete="username" required maxlength="254"></label>
+      <label>Password<input id="password" type="password" autocomplete="current-password" required minlength="6" maxlength="128"></label>
+      <button id="loginBtn" class="btn primary" type="submit">Sign in</button>
+      <p id="loginErr" class="err" role="alert"></p>
+    </form>
+
+    <div id="denied" class="panel" hidden>
+      <h2>Not authorized</h2>
+      <p class="muted">This account is not a member of the private conversation, or the conversation has not been set up yet.</p>
+      <p class="muted">Your user ID: <code id="myUid"></code></p>
+      <button id="deniedOut" class="btn" type="button">Sign out</button>
+    </div>
+
+    <div id="chatView" class="chatview" hidden>
+      <div class="chatbar">
+        <span id="conn" class="conn"><i></i><em>Connecting…</em></span>
+        <span class="spacer"></span>
+        <button id="clearBtn" class="btn small" type="button">Clear chat</button>
+        <button id="outBtn" class="btn small" type="button">Sign out</button>
+      </div>
+      <div id="msgs" class="msgs" aria-live="polite"></div>
+      <p id="empty" class="muted empty" hidden>No messages yet. Say hi 👋</p>
+      <p id="sendErr" class="err" role="alert"></p>
+      <form id="sendForm" class="send" autocomplete="off">
+        <input id="msgInput" type="text" maxlength="500" placeholder="Type a message" aria-label="Message">
+        <button class="btn primary" type="submit">Send</button>
+      </form>
+      <small class="muted"><span id="count">0</span>/500 · Messages are protected by sign-in and database rules, not end-to-end encrypted. Clearing chat cannot remove screenshots, notifications, backups or copies stored elsewhere.</small>
+    </div>
+  </section>
+</main>
+
+<dialog id="confirm">
+  <p><b>Clear the whole chat?</b></p>
+  <p class="muted">This deletes every message for both people. Copies already seen, screenshotted or backed up elsewhere cannot be erased.</p>
+  <div class="row">
+    <button id="confirmNo" class="btn" type="button">Cancel</button>
+    <button id="confirmYes" class="btn danger" type="button">Clear chat</button>
+  </div>
+</dialog>
+
+<script type="module" src="app.js"></script>
+</body>
+                                                                                                                                            </html>
+                                                                                                                                            
