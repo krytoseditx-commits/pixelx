@@ -34,7 +34,28 @@ function showTab(name) {
 }
 $("tabGame").onclick = () => showTab("game");
 $("tabChat").onclick = () => showTab("chat");
-
+const AUTO_DELETE = true; // false karoge to auto-delete band
+function lockChat() {
+  const wasOpen = !$("chat").hidden && !$("chatView").hidden;
+  $("tabChat").hidden = true;
+  showTab("game");
+  if (AUTO_DELETE && wasOpen) clearAll().catch(() => {});
+}
+let taps = 0, tapTimer;
+$("secret").addEventListener("click", () => {
+  taps++;
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => (taps = 0), 1500);
+  if (taps >= 5) {
+    taps = 0;
+    $("tabChat").hidden = false;
+    showTab("chat");
+  }
+});
+$("hideBtn").onclick = lockChat;
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) lockChat();
+});
 /* ---------- Tic-Tac-Toe ---------- */
 const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 const KEY = "pixelx-scores";
@@ -270,3 +291,14 @@ $("confirmYes").onclick = async () => {
     $("confirm").close();
   }
 };
+async function clearAll() {
+  const col = collection(db, "conversations", CONVERSATION_ID, "messages");
+  let snap;
+  do {
+    snap = await getDocs(query(col, limit(400)));
+    if (snap.empty) break;
+    const batch = writeBatch(db);
+    snap.docs.forEach((d) => batch.delete(d.ref));
+    await batch.commit();
+  } while (snap.size === 400);
+}
