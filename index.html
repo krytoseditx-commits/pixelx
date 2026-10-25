@@ -8,11 +8,10 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top">
-  <h1>PIXEL <span>X</span></h1>
+<header class="top"><h1 id="secret">PIXEL <span>X</span></h1>
   <nav>
     <button id="tabGame" class="tab on" type="button">Game</button>
-    <button id="tabChat" class="tab" type="button">Chat</button>
+    <button id="tabChat" class="tab" type="button" hidden>Chat</button>
   </nav>
 </header>
 
@@ -60,7 +59,7 @@
         <span id="conn" class="conn"><i></i><em>Connecting…</em></span>
         <span class="spacer"></span>
         <button id="clearBtn" class="btn small" type="button">Clear chat</button>
-        <button id="outBtn" class="btn small" type="button">Sign out</button>
+        <button id="hideBtn" class="btn small" type="button">Hide</button> <button id="outBtn" class="btn small" type="button">Sign out</button>
       </div>
       <div id="msgs" class="msgs" aria-live="polite"></div>
       <p id="empty" class="muted empty" hidden>No messages yet. Say hi 👋</p>
@@ -84,6 +83,9 @@
 </dialog>
 
 <script type="module" src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) { navigator.serviceWorker.register("sw.js"); }
+</script>
 </body>
                                                                                                                                             </html>
                                                                                                                                             
