@@ -68,3 +68,11 @@ dialog{background:var(--surface);color:var(--text);border:1px solid var(--line);
 dialog::backdrop{background:rgba(0,0,0,.65)}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.top, #secret {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+#secret { padding: 10px 14px 10px 0; }
